@@ -15,6 +15,7 @@ stream.
 
 import sys
 import argparse
+from collections import deque
 
 parser = argparse.ArgumentParser(add_help=False)
 parser.add_argument('-?', '--help', action='help', default=argparse.SUPPRESS, help="Show this help message and exit.")
@@ -34,14 +35,13 @@ t=int(args.tail)
 
 try:
     rn=0 #variable for tracking record number
-    cache = list()  #initializing the cache. The cache is what allow us to crop at the end of the file
+    cache = deque()  #initializing the cache. The cache is what allow us to crop at the end of the file
     for i in f:     #Please note that the more there is to be removed from the end of the file, the larger the cache, and the larger the cache, the more memory is consumed.
         rn+=1    
         if rn > h:
             cache.append(i)
         if rn > h + t:
-            print(cache[0],end="")
-            cache.pop(0)
+            print(cache.popleft(),end="")
 
 except IOError:
     f.close()
