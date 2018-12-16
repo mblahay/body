@@ -4,6 +4,7 @@
 Created on Thu Oct 19 14:51:52 2017
 
 @author: Michael Blahay
+
 Created this because there is no good way use common unix utilities to crop a file
 down to some portion of the middle. In particular, there isn't a good way to remove
 a specified number of lines from the end of a file without first knowing the number
@@ -36,12 +37,16 @@ t=int(args.tail)
 try:
     rn=0 #variable for tracking record number
     cache = deque()  #initializing the cache. The cache is what allow us to crop at the end of the file
-    for i in f:     #Please note that the more there is to be removed from the end of the file, the larger the cache, and the larger the cache, the more memory is consumed.
+    for l in f:     #Please note that the more there is to be removed from the end of the file, the larger the cache, and the larger the cache, the more memory is consumed.
         rn+=1    
         if rn > h:
-            cache.append(i)
+            cache.append(l)
         if rn > h + t:
-            print(cache.popleft(),end="")
-
+            sys.stdout.write(cache.popleft())
+    
 except IOError:
-    f.close()
+    raise
+finally:
+    f.close() # Make sure that the file is closed.
+    sys.stdout.flush() # Flush the output buffer to make sure it is clear before exit
+    
