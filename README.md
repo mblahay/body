@@ -15,5 +15,5 @@ operate on stdin.
 
 Example:
 
-crop.py -h 2 -t 3 file.txt  <-- Removes the first 2 and last 3 lines from the file
+body.py -h 2 -t 3 file.txt  <-- Removes the first 2 and last 3 lines from the file
 
