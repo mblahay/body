@@ -2,7 +2,7 @@ import os
 from setuptools import setup
 
 setup(
-    name = "body_tool",
+    name = "body_crop",
     version = "0.9",
     author = "Michael Blahay",
     author_email = "mblahay@gmail.com",
