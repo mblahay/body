@@ -1,4 +1,4 @@
-# crop
+# body
 Small utility for cropping a text file.
 
 Created this because there is no good way use common unix utilities to crop a file
