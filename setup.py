@@ -8,9 +8,9 @@ setup(
     author_email = "mblahay@gmail.com",
     description = ("Tool for cropping files"),
     license = "MIT",
-    keywords = "example documentation tutorial",
+    keywords = "body_crop",
     url = "https://github.com/mblahay/body",
-    packages=['an_example_pypi_project', 'tests'],
+    packages=['body_crop'],
     long_description='Tool for cropping the contents for files.',
     classifiers=[
         "Development Status :: 3 - Alpha",
