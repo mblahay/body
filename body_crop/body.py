@@ -8,10 +8,14 @@ Created on Thu Oct 19 14:51:52 2017
 Created this because there is no good way use common unix utilities to crop a file
 down to some portion of the middle. In particular, there isn't a good way to remove
 a specified number of lines from the end of a file without first knowing the number
-of lines in the file. Though, this can be done, it would require multiple passes
+of lines in the file*. Though, this can be done, it would require multiple passes
 through a file. For a stream, multiple passes would be impossible unless the stream
 is first saved to a file, which may not be reasonable depending on the size of the 
 stream.
+
+*Turns out that head and tail do offer the desired functionality when used together
+with the -n switch. It is not very well documented, but is possible. Will continue
+to work with this project to pilot other skills.
 """
 
 import sys
@@ -70,22 +74,18 @@ if __name__ == '__main__':
                                               # point layer for the logger and provides the best performance benefit when there is a need to exclude 
                                               # logging levels.
 
-    if args.filename == "-":
-        f = sys.stdin
-    else:    
-        f = open(args.filename)
+    # if args.filename == "-":
+    #     input = sys.stdin
+    # else:    
+    #     f1 = open(args.filename)
     
-    h = int(args.head)
-    t = int(args.tail)
-    d = args.debug
+    with sys.stdin if args.filename == "-" else open(args.filename) as f:
+        h = int(args.head)
+        t = int(args.tail)
+        d = args.debug
     
-    try:
         for i in body(f,h,t):
             sys.stdout.write(i)
 
-    except IOError:
-        raise
-    finally:
-        f.close() # Make sure that the file is closed.
-        sys.stdout.flush() # Flush the output buffer to make sure it is clear before exit
+    sys.stdout.flush() # Flush the output buffer to make sure it is clear before exit
         
