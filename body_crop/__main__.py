@@ -35,22 +35,13 @@ if args.debug: lg.setLevel(logging.DEBUG) # This actually sets the output level 
                                             # point layer for the logger and provides the best performance benefit when there is a need to exclude 
                                             # logging levels.
 
-if args.filename == "-":
-    f = sys.stdin
-else:    
-    f = open(args.filename)
 
-h = int(args.head)
-t = int(args.tail)
-d = args.debug
+with sys.stdin if args.filename == "-" else open(args.filename) as f:
+    h = int(args.head)
+    t = int(args.tail)
+    d = args.debug
 
-try:
     for i in body(f,h,t):
         sys.stdout.write(i)
 
-except IOError:
-    raise
-finally:
-    f.close() # Make sure that the file is closed.
-    sys.stdout.flush() # Flush the output buffer to make sure it is clear before exit
-    
+sys.stdout.flush() # Flush the output buffer to make sure it is clear before exit
